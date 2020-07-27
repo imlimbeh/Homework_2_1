@@ -1,7 +1,8 @@
-package com.example.practical_2_part_a;
+package com.example.homework_2_1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -12,15 +13,21 @@ public class MainActivity extends AppCompatActivity {
     private int mCount = 0;
     private TextView mShowCount;
 
+    public static final String EXTRA_NUMBER
+            = "com.example.homework_2_1.extra.MESSAGE";
+    public static final int TEXT_REQUEST = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mShowCount = (TextView) findViewById(R.id.show_count);
     }
-    public void showToast(View view) {
-        Toast toast = Toast.makeText(this, R.string.toast_message, Toast.LENGTH_SHORT);
-        toast.show();
+    public void sayHello(View view) {
+        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+        String  num = mShowCount.getText().toString();
+        intent.putExtra(EXTRA_NUMBER, num);
+        startActivityForResult(intent, TEXT_REQUEST);
     }
     public void countUp(View view) {
         ++mCount;
